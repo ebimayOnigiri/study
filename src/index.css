@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+SC:wght@500;800&display=swap');
+
+:root {
+  /* Colors - Panda Cute Light Mode */
+  --bg-primary: #f2f7f4; /* 笹の葉をイメージした極めて淡いライトグリーンホワイト */
+  --bg-secondary: #ffffff; /* パネル・カードの純白 */
+  --bg-tertiary: #e2ede5; /* やや濃いめの淡いグリーン */
+  
+  --primary: #16a34a; /* はっきりとした竹のグリーン (コントラスト高) */
+  --primary-glow: rgba(22, 163, 74, 0.2);
+  --primary-hover: #15803d;
+  
+  --secondary: #d97706; /* 視認性の高いはちみつゴールド・オレンジ */
+  --secondary-glow: rgba(217, 119, 6, 0.2);
+  
+  --accent: #e11d48; /* 可愛いさくらんぼピンク */
+  --accent-glow: rgba(225, 29, 72, 0.2);
+  
+  --text-main: #1e293b; /* 非常に読みやすい濃いネイビーグレー */
+  --text-muted: #576574; /* しっかりと読めるサブテキストグレー */
+  --text-dark: #0f172a;
+  
+  --danger: #dc2626;
+  --success: #16a34a;
+  
+  /* Cute Rounded Layout & Cards */
+  --border-radius-sm: 12px;
+  --border-radius-md: 20px;
+  --border-radius-lg: 28px;
+  --border-radius-xl: 36px;
+  
+  --shadow-sm: 0 4px 6px rgba(22, 163, 74, 0.04);
+  --shadow-md: 0 10px 25px rgba(22, 163, 74, 0.06);
+  --shadow-lg: 0 16px 35px rgba(22, 163, 74, 0.1);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  
+  /* Fonts - Rounded & Friendly */
+  --font-sans: 'Quicksand', 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;
+  
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  /* 背景にかわいい笹の葉色のドットまたは淡いグラデーション */
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(22, 163, 74, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(225, 29, 72, 0.03) 0%, transparent 45%);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+/* Cute puffy cards (replacing glassmorphism) */
+.glass-panel {
+  background: var(--bg-secondary);
+  border: 3px solid #e8f3ec; /* 笹の葉ホワイトの太めのボーダー */
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+  color: var(--text-main);
+}
+
+.glass-panel-interactive {
+  composes: glass-panel;
+  transition: var(--transition-bounce);
+}
+.glass-panel-interactive:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: #cce7d7;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+  border: 2px solid var(--bg-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(22, 163, 74, 0.15); }
+  50% { box-shadow: 0 0 22px rgba(22, 163, 74, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(22, 163, 74, 0.15); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Confetti styling */
+.confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary);
+  border-radius: 3px;
+  animation: confetti-fall 2.8s linear forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Premium Cute Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  border: none;
+  border-bottom: 4px solid #166534; /* 押しボタン風の立体感 */
+  padding: 12px 24px;
+  border-radius: var(--border-radius-md);
+  font-weight: 800;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--primary-glow);
+  transition: var(--transition-bounce);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 0px;
+  margin-bottom: 4px;
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: #15803d; /* 緑の文字で可愛く */
+  border: 3px solid #cce7d7;
+  border-bottom: 4px solid #b2dac1;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-md);
+  font-weight: 800;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #d8eadc;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 0px;
+  margin-bottom: 4px;
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), #e11d48);
+  color: white;
+  border: none;
+  border-bottom: 4px solid #be123c;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-md);
+  font-weight: 800;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--accent-glow);
+  transition: var(--transition-bounce);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-accent:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.4);
+}
+
+.btn-accent:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 0px;
+  margin-bottom: 4px;
+}
+
+/* Badges */
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+}
+
+.app-badge-gold {
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1.5px solid #fef08a;
+}
+
+.app-badge-green {
+  background: #dcfce7;
+  color: #166534;
+  border: 1.5px solid #bbf7d0;
+}
+
+.app-badge-pink {
+  background: #ffe4e6;
+  color: #9f1239;
+  border: 1.5px solid #fecdd3;
+}
